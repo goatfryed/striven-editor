@@ -8,7 +8,8 @@ module.exports = {
         index: './src/index.js',
         striveneditor: './src/striveneditor.js',
         'ko-striveneditor': './src/ko-striveneditor.js',
-        'vue-striveneditor': './src/vue-striveneditor.vue'
+        'vue-striveneditor': './src/vue-striveneditor.vue',
+        'react-integration': './src/react-integration.jsx',
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -19,12 +20,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.m?js$/,
+                test: /\.m?jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env'],
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
                         plugins: ['@babel/plugin-transform-modules-umd']
                     }
                 }
@@ -53,5 +54,13 @@ module.exports = {
             },
             extractComments: true,
         })]
+    },
+    externals: {
+        react: {
+            commonjs: 'react',
+            commonjs2: 'react',
+            amd: 'react',
+            root: 'React',
+        }
     }
 };
